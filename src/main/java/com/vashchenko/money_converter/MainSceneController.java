@@ -1,10 +1,14 @@
 package com.vashchenko.money_converter;
-import com.vashchenko.money_converter.Parsers.BNBParser;
-import com.vashchenko.money_converter.Parsers.Currency;
-import com.vashchenko.money_converter.Parsers.Parser;
+import com.vashchenko.money_converter.Parsers.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -18,10 +22,21 @@ public class MainSceneController {
     public static ArrayList<Currency> curInfo = new ArrayList<>
             (Arrays.asList(new Currency("USD"),new Currency("EUR"),new Currency("RUB"),new Currency("UAH")));
     private Parser parser;
-    private boolean isInput=true;
+    private ComboBoxListener formListener;
+
+    private ObservableList<String> banks = FXCollections.observableArrayList("BNB-Bank","BSB-Bank",
+            "SBER-Bank");
+
+
+    @FXML
+    private ComboBox<String> chooseBox;
+
 
     @FXML
     private Text warningText;
+
+    @FXML
+    private Text savedCur;
     @FXML
     private TextField BYN;
 
@@ -38,22 +53,20 @@ public class MainSceneController {
     private TextField USD;
 
     @FXML
+    private Text UAHText;
+    @FXML
     void keyPressed(KeyEvent event) {
         TextField field = (TextField) event.getSource();
         updateFields(field);
     }
 
+
     @FXML
-    void initialize() throws CloneNotSupportedException, IOException {
-        BNBParser parser = new BNBParser("BNB");
-        try{
-            parser.getaRates();
-        }
-        catch (Exception e){
-            //view of exception
-            System.out.println("exeption");
-            parser.getSavedRates();
-        }
+    void initialize(){
+        UAH.setVisible(false);
+        UAHText.setVisible(false);
+        chooseBox.setItems(banks);
+        formListener = new ComboBoxListener<>(chooseBox);
         Currency byn = new Currency("BYN");
         byn.setCourse(1);
         MainSceneController.curInfo.add(byn);
@@ -63,6 +76,58 @@ public class MainSceneController {
         fields.add(RUB);
         fields.add(UAH);
         fields.add(USD);
+        chooseBox.setOnAction(event -> {
+            String bank = chooseBox.getValue();
+            for (TextField textField : fields) {
+                textField.setText("");
+            }
+            switch (bank){
+                case "SBER-Bank" -> {
+                    UAH.setVisible(false);
+                    UAHText.setVisible(false);
+                    parser = new SBERParser();
+                    break;
+                }
+                case "BNB-Bank" -> {
+                    parser=new BNBParser();
+                    UAHText.setVisible(true);
+                    UAH.setVisible(true);
+                    break;
+                }
+                case "BSB-Bank" -> {
+                    parser = new BSBParser();
+                    UAHText.setVisible(true);
+                    UAH.setVisible(true);
+                    break;
+                }
+            }
+            try{
+                parser.getaRates();
+                savedCur.setVisible(false);
+            }
+            catch (IOException | CloneNotSupportedException e1){
+                Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+                infoAlert.setTitle("Невозможно выполнить подключение к сайту данного банка");
+                infoAlert.setContentText("Будут использоваться сохраненные значения курсов валют");
+                infoAlert.show();
+                try {
+                    parser.getSavedRates();
+                    String answer="";
+                    for(int i=0;i<curInfo.size();i++) {
+                        if (!curInfo.get(i).equals(new Currency("BYN")))
+                            answer = answer + curInfo.get(i).toString() + "   ";
+                    }
+                    savedCur.setText(answer);
+                    savedCur.setVisible(true);
+                }
+                catch (IOException | CloneNotSupportedException e){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Приложение полностью накрылось");
+                    alert.setTitle("Непонятно как ты это сделал");
+                    alert.show();
+                }
+            }
+        });
     }
 
 

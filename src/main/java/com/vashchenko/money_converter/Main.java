@@ -16,9 +16,6 @@ public class Main extends Application {
         stage.setTitle("Converter");
         stage.setScene(scene);
         stage.show();
-        for(Currency currency:MainSceneController.curInfo){
-            System.out.println(currency);
-        }
     }
 
     public static void main(String[] args) {

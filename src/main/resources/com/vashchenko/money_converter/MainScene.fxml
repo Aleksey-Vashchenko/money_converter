@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -32,11 +33,13 @@
             <Font name="Bodoni MT Black" size="17.0" />
          </font>
       </Text>
-      <Text layoutX="67.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UAH">
+      <Text fx:id="UAHText" layoutX="67.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UAH">
          <font>
             <Font name="Bodoni MT Black" size="17.0" />
          </font>
       </Text>
       <Text fx:id="warningText" disable="true" fill="RED" layoutX="141.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Проверьте правильноcть ввода" visible="false" />
+      <ComboBox fx:id="chooseBox" layoutX="342.0" layoutY="165.0" prefWidth="150.0" />
+      <Text fx:id="savedCur" layoutX="215.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" />
    </children>
 </AnchorPane>

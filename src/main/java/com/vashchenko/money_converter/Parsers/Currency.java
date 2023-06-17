@@ -37,10 +37,7 @@ public class Currency implements  Cloneable{
 
     @Override
     public String toString() {
-        return "Currency{" +
-                "name='" + name + '\'' +
-                ", course=" + course +
-                '}';
+        return name+" - "+course;
     }
 
     public Currency(String name) {
