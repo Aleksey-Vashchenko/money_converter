@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vashchenko.money_converter.MainSceneController">
+   <children>
+      <TextField fx:id="USD" layoutX="151.0" layoutY="62.0" onKeyReleased="#keyPressed" />
+      <TextField fx:id="EUR" layoutX="151.0" layoutY="111.0" onKeyReleased="#keyPressed" />
+      <TextField fx:id="BYN" layoutX="151.0" layoutY="165.0" onKeyReleased="#keyPressed" />
+      <TextField fx:id="RUB" layoutX="151.0" layoutY="216.0" onKeyReleased="#keyPressed" />
+      <TextField fx:id="UAH" layoutX="151.0" layoutY="266.0" onKeyReleased="#keyPressed" />
+      <Text layoutX="67.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USD">
+         <font>
+            <Font name="Bodoni MT Black" size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="67.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EUR">
+         <font>
+            <Font name="Bodoni MT Black" size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="66.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BYN">
+         <font>
+            <Font name="Bodoni MT Black" size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="67.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RUB">
+         <font>
+            <Font name="Bodoni MT Black" size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="67.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UAH">
+         <font>
+            <Font name="Bodoni MT Black" size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="warningText" disable="true" fill="RED" layoutX="141.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Проверьте правильноcть ввода" visible="false" />
+   </children>
+</AnchorPane>
