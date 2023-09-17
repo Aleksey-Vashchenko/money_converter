@@ -107,7 +107,8 @@ public class MainSceneController {
             }
             catch (IOException | CloneNotSupportedException e1){
                 Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
-                infoAlert.setTitle("Невозможно выполнить подключение к сайту данного банка");
+                infoAlert.setTitle("Ошибка парсинга");
+                infoAlert.setHeaderText("Невозможно выполнить парсинг данных с сайта данного банка");
                 infoAlert.setContentText("Будут использоваться сохраненные значения курсов валют");
                 infoAlert.show();
                 try {
@@ -145,7 +146,7 @@ public class MainSceneController {
                 return 0;
                 }
             }
-        warningText.setText("Проверьте правильноть ввода");
+        warningText.setText("Проверьте правильность ввода");
         return -1;
     }
 
@@ -159,7 +160,7 @@ public class MainSceneController {
                 if(!textField.getId().equals(field.getId())){
                     int index = curInfo.indexOf(new Currency(textField.getId()));
                     Currency secCur = curInfo.get(index);
-                    textField.setText(decimalFormat.format(Double.valueOf(newValue) * cur.getCourse() / secCur.getCourse()));
+                    textField.setText(decimalFormat.format(Double.valueOf(newValue) * cur.getCourse() / secCur.getCourse()).replace(',','.'));
                 }
             }
             return;
